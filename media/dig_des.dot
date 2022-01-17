@@ -1,0 +1,34 @@
+digraph G{
+
+node [margin=0.5 color=blue fontcolor=black fontsize=20 width=0.5 shape=box fontname="Helvetica"]
+I [label="Idea: M1. Spec review",shape=egg]
+D [label="Digital Design"]
+S [label="Simulation"]
+SY [label="Synthesis"]
+TA [label="Timing analysis"]
+PNR [label="Place and route"]
+LAT [label="Top layout"]
+
+TO [label="Tapeout",shape=egg]
+
+AD [label="Analog design (Cadence Virtuoso Schematic)"]
+AS [label="Simulation (Cadence Virtuoso Assembler): M2. Design review"]
+AL [label="Analog layout (Cadence Virtuoso Layout)"]
+ASLPE [label="LPE Simulation (Cadence Virtuoso Assembler): M4. Tapeout review"]
+
+VER [label="Cell DRC/LVS (Mentor Calibre): M3. Layout review"]
+LPE [label="Parasitic extraction (Cadence Quantus)"]
+D -> S -> SY -> TA -> PNR -> LAT
+PNR -> TA -> SY -> S -> D
+
+
+AD -> D [label="SystemVerilog Model" fontsize=15 fontname=Helvetica]
+
+I -> AD
+I -> D
+
+AD -> AS -> AL -> VER -> LPE -> ASLPE -> LAT
+AL -> AS -> AD
+LAT->  TO
+
+}
