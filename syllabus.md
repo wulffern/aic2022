@@ -32,6 +32,6 @@ syllabus
 | 1       | [Fifty Nifty Variations of Two-Transistor Circuits](https://ieeexplore.ieee.org/document/9523464)             | Figures 4,15, 23,27,40,41,46,49,50 |
 | 3       | [The Bandgap Reference - A Circuit for All Seasons](https://ieeexplore.ieee.org/document/7559954)             |                                    |
 | 4       | [The Transimpedance Amplifier - Circuit for All Seasons](https://ieeexplore.ieee.org/document/8635350)        |                                    |
-| 4       | [Complex signal processing is not complex](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1333231)      |                                    |
+| 4       | [Complex signal processing is not complex](https://ieeexplore.ieee.org/document/1333231)      |                                    |
 | 5       | [The Bootstrapped Switch - A circuit for All Seasons](https://ieeexplore.ieee.org/document/7258484)           |                                    |
 | 5       | [The Switched-Capacitor Integrator - A circuit for All Seasons](https://ieeexplore.ieee.org/document/7829485) |                                    |
