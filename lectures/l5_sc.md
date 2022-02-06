@@ -11,6 +11,14 @@ header:  Helvetica
 ---
 # Housekeeping
 
+Added "Continuous-time analog filters in nano-scale CMOS, challenges and opportunities" video to Lecture 4
+
+Added Lecture 6 papers. Read them until next time.
+
+Lecture in week 8 will be digital
+
+No-one is showing up to the physical exercise hours, so we go digital
+
 ---
 
 | Week | Book                 | Monday                                                                       | Project plan             | Exercise |
@@ -36,7 +44,7 @@ header:  Helvetica
 ---
 # Goal for today
 
-Understand **why** we sometimes need switched capacitor circuits
+Understand **why** would use switched capacitor circuits
 
 Introduction to **discrete-time**, and **switched capacitor**
 
@@ -133,7 +141,7 @@ Or $$ X_s(j\omega) = \frac{1}{T}\sum_{k=-\infty}^{\infty} X_c\left(j\omega - \fr
 
 [.column]
 
-**The spectrum of a sampled signal is an infinite sum of frequency shifted spectra!**
+**The spectrum of a sampled signal is an infinite sum of frequency shifted spectra**
 
 or equivalenty
 
@@ -219,7 +227,7 @@ $$ h[n] = \begin{cases} k & \text{if } n < 1 \\ a^{n-1}b + a^n k & \text{if } n 
 
 $$ H(z) = \frac{1}{3}\sum_{i=0}^2 z^{-1}$$
 
-Always stable! 
+
 
 ---
 
@@ -339,7 +347,7 @@ $$ H(z) = \frac{C_1}{C_2}\frac{z^{-1}}{z^{-1} + 1} =
 
 ---
 
-#[fit] Both phases add noise! $$ V_n^2 > \frac{2 k T}{C}$$
+#[fit] Both phases add noise, $$ V_n^2 > \frac{2 k T}{C}$$
 
 ---
 [.background-color: #000000]
