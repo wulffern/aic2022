@@ -1,0 +1,5 @@
+#+TITLE: For 2023
+
+* Project
+** TODO Fix chmod at the start of the semester
+** TODO Everyone needs to hand in a PDF dump of the confluence page
