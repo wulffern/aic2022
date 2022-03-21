@@ -1,0 +1,16 @@
+digraph finite_state_machine {
+    rankdir=LR;
+    size="8,5"
+
+    node [shape = doublecircle, label="IDLE\na=0 \nb=0\ncount=0", fontsize=12] idle;
+    node [shape = circle, label="UP\na=1\nb=0\ncount++", fontsize=12] up;
+    node [shape = circle, label="DWN\na=0\nb=1\ncount=0", fontsize=12] dwn;
+
+
+    idle -> up [label="vol = 1"];
+    idle -> idle [label="vol = 0"];
+    up -> dwn [label="count = up_cycles"];
+    up -> up [label="count < up_cycles"];
+    dwn -> idle [label="vz = 1"];
+    dwn -> dwn [label="vz = 0"];
+}
