@@ -14,3 +14,7 @@
 ** DONE Record video on Lecture 3
 ** KILL Check size of SUN_BIAS
 ** DONE Explain verilogA
+
+* 2022-03-28
+** TODO Blackboard message
+** TODO techfile is wrong

@@ -54,15 +54,15 @@ Introduce tradeoff's for Low Power Recievers
 # Data 
 Assume mouse case limits data
 
-| What | Bits | Why |
-| ----  | ---- | ---- |
-| X displacement | 8 | |
-| Y displacement | 8 | |
-| CRC | 4 | Bit errors|
-| Buttons| 16 | On-hot coding. Most mice have buttons|
-| Preamble| 8 | Syncronization|
-| Address | 32 | Unique identifier |
-| Total | 76 | |
+| What           | Bits | Why                                   |
+|----------------|------|---------------------------------------|
+| X displacement | 8    |                                       |
+| Y displacement | 8    |                                       |
+| CRC            | 4    | Bit errors                            |
+| Buttons        | 16   | On-hot coding. Most mice have buttons |
+| Preamble       | 8    | Syncronization                        |
+| Address        | 32   | Unique identifier                     |
+| Total          | 76   |                                       |
 
 ---
 # Rate
@@ -83,14 +83,15 @@ Multiply by $$\pi$$ > 716 kbps
 
 Round to nearest nice number = 1Mbps
 
-----
+---
 # [fit] Carrier Frequency & Range
-----
+---
 # ISM (industrial, scientific and medical) bands
 
 ![inline](../media/ism.png)
 
 ---
+
 # Antenna
 
 [.column]
@@ -106,7 +107,9 @@ Assume $$\lambda/4$$ is an OK antenna size ($$\lambda = c/f$$)
 | 5800 MHz | 1.29 | cm|:white_check_mark:|
 | 24.125 GHz | 3.1 | mm|:white_check_mark:|
 | 61.25 GHz | 1.2 | mm|:white_check_mark:|
+
 ---
+
 # Range (Friis)
 [.column]
 
@@ -143,9 +146,9 @@ Assume TX = 0 dBm, assume RX sensitivity is -80 dBm
 | 61.25G | -68.2 | 3.9 | :x:|
 
 
-----
+---
 # [fit] Supply voltage
-----
+---
 
 # Battery voltage
 

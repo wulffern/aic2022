@@ -61,9 +61,11 @@ Multiply by $$\pi$$ > 716 kbps
 
 Round to nearest nice number = 1Mbps
 
-----
+---
+
 # [fit] Carrier Frequency & Range
-----
+
+---
 # ISM (industrial, scientific and medical) bands
 
 ![inline](../media/ism.png)
@@ -122,7 +124,7 @@ Assume TX = 0 dBm, assume RX sensitivity is -80 dBm
 | 61.25 GHz | -68.2 | 3.9 | :x:|
 | 160 GHz | -76.52| 1.5 | :x:|
 
-----
+---
 
 
 Path loss factor, $$ n \in [1.6,6]$$, $$ D = 10^\frac{P_{TX} - P_{RX} + 20 log_{10}\left(\frac{c}{4 \pi f}\right)}{n
@@ -139,7 +141,7 @@ Path loss factor, $$ n \in [1.6,6]$$, $$ D = 10^\frac{P_{TX} - P_{RX} + 20 log_{
 
 # [fit] Supply voltage
 
-----
+---
 
 # Battery voltage
 

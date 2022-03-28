@@ -1,0 +1,147 @@
+#!/usr/bin/perl
+
+use strict;
+use File::Basename;
+
+my $dir = "lectures";
+my $diro = "pandoc";
+
+sub cpImage{
+  my $imgsrc = shift;
+
+  #- Skip URLS
+  if($imgsrc =~ m/^\s*http/){
+    return $imgsrc;
+  }
+
+  my $imgdst = basename($imgsrc);
+
+  if($imgdst =~ m/\.pdf/ig){
+    $imgdst  =~ s/\.pdf/\.png/ig;
+
+    if(!-f $diro."/".$imgdst){
+      system("cd $diro; sips -s format png $imgsrc --out $imgdst");
+    }
+  }else{
+    if(!-f $diro."/".$imgdst){
+      system("cd $diro; cp $imgsrc $imgdst");
+    }
+  }
+  return $imgdst;
+}
+
+
+sub d2m{
+  my $fi = shift;
+  my $fo = shift;
+  my $imgwidth = "{width: 250}";
+  open(FI,'<', $fi) or die "Could not open $fi";
+  open(FO,'>', $fo) or die "could not open $fo for writing";
+
+  print $fi."\n";
+
+  my $output = 0;
+
+  while(<FI>){
+
+    #- Skip Metadata
+    if(m/^\s*$/ig){
+      $output = 1;
+    }
+
+    #- Remove spacers
+    s/^\s*--\s*$//ig;
+
+    #- Don't know what to do with columns
+    s/\[.column]//ig;
+
+
+    #- Fix headings
+    s/\#\s*\[[^\]]+\]/# /ig;
+
+    #- Fix math spaces
+    s/\s*\$\$\s*/\$\$/ig;
+
+    #- Fix images
+    if(m/\!\[([^\]]*)\]\(([^\)]+)\)/ig){
+
+      my $imgsrc = $2;
+      my $imgdst = &cpImage($imgsrc);
+
+      $_ = "<img src='$imgdst' ></img><br>\n";
+      #$_ = "![]($2) <br>\n";
+
+    }
+
+    #- Remove lines
+    s/^\s*---\s*$//ig;
+
+    if($output){
+      print FO $_;
+    }
+
+
+
+  }
+
+  close(FI);
+  close(FO);
+}
+
+sub pandoc{
+  my $fo = shift;
+  my $foh = $fo;
+  $foh =~ s/\.md/\.html/ig;
+  system("pandoc -o $foh -t html --mathjax --metadata title='$fo' -s $fo")
+
+}
+
+sub pdf{
+  my $fo = shift;
+  my $foh = $fo;
+  my $fop = $fo;
+  $foh =~ s/\.md/\.html/ig;
+  $fop =~ s/\.md/\.pdf/ig;
+
+  my $cmd = "\"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome\" --headless --disable-gpu --print-to-pdf=$fop $foh";
+
+  #print($cmd);
+  system($cmd);
+}
+
+
+opendir(D,$dir) || die "Could not open $dir";
+
+my @lectures;
+
+while(readdir(D)){
+
+  if(m/^l.*\.md/){
+    push(@lectures,$_);
+  }
+
+}
+
+close(D);
+
+my $md ="# AIC2022 \n";
+
+foreach my $l(sort(@lectures)){
+  my $fi = $dir ."/".$l;
+  my $fo = $diro."/".$l;
+
+  my $hf = $l;
+  $hf =~ s/\.md/\.html/ig;
+
+  $md .= " - [$hf]($hf)\n";
+
+  &d2m($fi,$fo);
+  &pandoc($fo);
+  &pdf($fo);
+}
+
+my $index = $diro."/index.md";
+open(fo,">",$index) or die "Could not open $index";
+print fo $md;
+close(fo) or die "Could not close $index";
+&pandoc($index)

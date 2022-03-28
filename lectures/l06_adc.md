@@ -9,6 +9,7 @@ header:  Helvetica
 # State-of-the-art ADCs
 
 ---
+
 # Housekeeping
 
 Next week (21'st of February) is digital on Teams. Lecture on Panopto, session will be purely Q&A
@@ -76,6 +77,7 @@ endmodule
 
 
 ---
+
 # Goal for today
 
 Understand **why** there are different ADCs
@@ -83,11 +85,13 @@ Understand **why** there are different ADCs
 Introduction to **delta-sigma** modulators
 
 ---
+
 [1999, R. Walden: Analog-to-digital converter survey and analysis](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=761034)
 
 ![original 100%](../media/l6_walden.png)
 
 ---
+
 [B. Murmann, ADC Performance Survey 1997-2021 (ISSCC & VLSI Symposium)](https://web.stanford.edu/~murmann/adcsurvey.html)
 
 
@@ -310,6 +314,7 @@ $$Y(Z) = STF(z) U(z) + NTF(z) E(z)$$
 #[fit] First-Order Noise-Shaping
 
 ---
+
 ![left fit](../media/l6_sdadc.pdf)
 
 $$H(z) = \frac{1}{z-1}$$
@@ -319,6 +324,7 @@ $$STF = \frac{1/(z-1)}{1 + 1/(z-1)} = \frac{1}{z} = z^{-1}$$
 $$NFT = \frac{1}{1 + 1/(z-1)} = \frac{z-1}{z} = 1 - z^{-1}$$
 
 ---
+
 ![left fit](../media/l6_sdadc.pdf)
 
  $$NFT =  1 - z^{-1}$$
