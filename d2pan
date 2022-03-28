@@ -57,7 +57,7 @@ sub d2m{
 
 
     #- Fix headings
-    s/\#\s*\[[^\]]+\]/# /ig;
+    s/\#\s*\[\s*fit\s*\]/# /ig;
 
     #- Fix math spaces
     s/\s*\$\$\s*/\$\$/ig;
@@ -144,4 +144,4 @@ my $index = $diro."/index.md";
 open(fo,">",$index) or die "Could not open $index";
 print fo $md;
 close(fo) or die "Could not close $index";
-&pandoc($index)
+#&pandoc($index)
