@@ -21,7 +21,7 @@ P_load = V_D*i_load
 plt.subplot(2,1,1)
 plt.plot(i_load/m,V_D)
 
-plt.ylabel("Diode voltage [mA]")
+plt.ylabel("Diode voltage [V]")
 plt.grid()
 plt.subplot(2,1,2)
 plt.plot(i_load/m,P_load/m)

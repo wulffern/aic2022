@@ -225,6 +225,14 @@ plt.show()
 
 ---
 
+![left original fit](../py/pv.pdf)
+
+[ANYSOLAR](https://www.digikey.no/en/products/detail/anysolar-ltd/KXOB25-03X4F-TB/13999196)
+
+![right original fit](../ip/l11_pv_dtsh.pdf)
+
+---
+
 ![fit](../ip/l11_pv1_0.pdf)
 
 ---
