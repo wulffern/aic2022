@@ -5,10 +5,17 @@ theme: Plain Jane, 1
 text:  Helvetica
 header:  Helvetica
 
-## TFE4188 - Lecture 1
+
+<!--pan_title: SUN Input/Output and electrostatic discharge  -->
+
+<!--pan_skip: -->
+
+## TFE4188 - Lecture 2
 # ESD and I/O
 
 ---
+<!--pan_skip: -->
+
 # Housekeeping
 
 Groups sets on blackboard, make sure you sign up this week. The username you get does not have to correspond to your AIC group name. 
@@ -23,6 +30,7 @@ Exam will likely be oral
 Will start f2f lectures from next week (24'th of January) in F6 gamle fysikk
 
 ---
+<!--pan_skip: -->
 | Week | Book                 | Monday                                                                       | Project plan             | Exercise |
 |------|----------------------|------------------------------------------------------------------------------|--------------------------|----------|
 | 2    | CJM 1-6              | Course intro, what I expect you to know, project, analog design fundamentals | Specification            |          |
@@ -44,6 +52,7 @@ Will start f2f lectures from next week (24'th of January) in F6 gamle fysikk
 
 
 ---
+<!--pan_skip: -->
 # Goal for today
 
 Understand the **real-world** constraints on our IC
@@ -52,7 +61,19 @@ Understand why you must **always handle ESD** on an IC
 
 ---
 
-#[fit] SUN 
+#[fit] SUN
+
+<!--pan_doc:
+
+The project for 2022 is to create something that senses the real world. The plan is at some point
+to tapeout the IC.
+
+To measure the circuits we need a measurement setup, and a printed circuit board. We don't want to develop everything though. 
+We don't want to make the interface to the computer, nor the power supply nor the microcontroller to read the IC. 
+
+The quickest way is to leverage existing hardware. And I know how to program the nRF52 development boards.
+
+-->
 
 ---
 
@@ -61,6 +82,14 @@ Understand why you must **always handle ESD** on an IC
 ![inline 100%](../media/nRF52833-DK.png)
 
 ---
+
+<!--pan_doc:
+
+The 3.0 V from the DK will connect to the VDD of SUN, while the 1.5 V is by an internal LDO. The control shift register, 
+the TDX output from SUN will connect to the general purpose input/output (GPIO) on nRF52. The asyncrhonous reset will also connect to
+a GPIO, but here we'll also include a physical button on the board. Maybe even leverage the same net as the reset pin on the nRF52 DK.
+
+-->
 
 ![fit](../media/sun_nrf52_annotated.pdf)
 
@@ -153,7 +182,7 @@ Know how the real system looks before you make your design.
 What limits voltage, temperature, input/output in testing?
 
 ---
-
+<!--pan_skip: -->
 #[fit] ESD
 
 ---
@@ -162,7 +191,29 @@ What limits voltage, temperature, input/output in testing?
 
 If you make an IC, you must consider Electrostatic Discharge (ESD) Protection circuits
 
+<!--pan_doc: 
+
+ESD events are tricky. They are short (ns), high current (Amps) and poorly modeled in the SPICE model. 
+Most SPICE models will not model correctly what happens to an transistor during an ESD event.
+
+But ESD design is a must, you have to think about ESD, otherwise your design will never work. 
+
+Consider a certain ESD specification, for example 1 kV human body model, a requirement for an integrated circuit. 
+By requirement I mean if the 1 kV is not met, then the project will be delayed until it is fixed. If it's not fixed, then the
+project will be infinietly delayed, or in other words, cancelled.
+
+Now imagine it's your responsibility to ensure it meets the 1 kV specification, what would you do? I would recommend you read one
+of the few ESD books in existence, shown below, and rely on you understanding of PN-junctions.
+
+-->
+
 ![right 110%](https://media.wiley.com/product_data/coverImage300/18/04714987/0471498718.jpg)
+
+<!--pan_doc: 
+
+The industry has agreed on some common test criteria for electrostatic discharge.
+
+-->
 
 Standards for testing at [JEDEC](https://www.jedec.org/category/technology-focus-area/esd-electrostatic-discharge-0)
 

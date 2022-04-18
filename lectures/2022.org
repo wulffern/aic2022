@@ -16,5 +16,6 @@
 ** DONE Explain verilogA
 
 * 2022-03-28
-** TODO Blackboard message
-** TODO techfile is wrong
+** DONE Blackboard message
+** DONE techfile is wrong
+**

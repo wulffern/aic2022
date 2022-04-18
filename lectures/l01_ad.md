@@ -5,10 +5,14 @@ theme: Plain Jane, 1
 text:  Helvetica
 header:  Helvetica
 
+<!--pan_title:# Analog Design Fundamentals -->
+
+<!--pan_skip: -->
 ## TFE4188 - Lecture 1
 # Analog design fundamentals
 
 ---
+<!--pan_skip: -->
 | Week | Book          | Monday                                           | Project plan                          |
 |------|---------------|--------------------------------------------------|---------------------------------------|
 | 2    | CJM 1-6       | Course intro, what I expect you to know, project, analog design fundamentals | Specification                         |
@@ -29,12 +33,16 @@ header:  Helvetica
 | 17   |               | Exam repetition                                  |                                       |
 
 ---
+<!--pan_skip: -->
 
 Questions from previous lectures?
 
 NDA
 
 ---
+
+<!--pan_skip: -->
+
 # Goal for today
 
 Choosing transistor sizes is **complicated**
@@ -79,6 +87,8 @@ $PROJECT/lib/spectre/corners.csv
 ---
 -->
 
+<!--pan_skip: -->
+
 #[fit] Complicated
 
 ---
@@ -120,12 +130,20 @@ Strong inversion
 
 ---
 
+
+
 [.column]
 ![inline](../media/fig_pmos.pdf) ![inline](../media/fig_nmos.pdf)
 
 [.column]
 
 # Flavors
+
+<!--pan_doc:
+
+Mosfets come in flavors, we can separate into PMOS and NMOS. 
+
+-->
 
 1.5 V MOS (standard Vt, native Vt)
 
@@ -187,6 +205,13 @@ If publishing, have some **luck**
 
 #[fit] Trigger
 
+<!--pan_doc:
+
+Back in November 2009 I was listening to Lanny Lewyn talk about regular layout at NorChip in Trondheim and idea struck 
+'I'm pretty sure I'm able to write a script to generate this layout'. In 2010 I started writing the script. 
+
+-->
+
 ![inline fit](../media/acdncmos.png)
 
 ![right fit](../media/trigger.png)
@@ -194,10 +219,36 @@ If publishing, have some **luck**
 ---
 #[fit] Problem
 
+
+<!--pan_doc:
+
+Although I knew what I wanted to do, generate layout, I needed a problem to solve. It was not enough for me to make something to generate layout. I wanted the generated layout,
+and the generated analog blocks, to be better than anything out there. It should be state of the art, even though it was generated, or compiled. 
+
+I don't remember how I choose the problem, but I did see the overview of ADCs and noticed the lack of high efficiency, medium speed ADCs. I also knew from my PhD that 
+Walden figure of merit favors low-resolution ADCs. 
+
+-->
+
 ![right fit](../media/efficient_adcs.png)
 
 ---
 #[fit] Architecture
+
+<!--pan_doc:
+
+In 2009 there was really only one type of ADC that made sense, the successive-approximation ADC. Using finger capacitors had become common, and 
+it was demonstrated that it was OK to use really small capacitors, down to atto farads. 
+
+The thermal noise power of an ADC is in part determined by the capacitor size, given by 
+
+$$ P_{noise} = \frac{k T}{C} $$
+
+Especially in nano-scale, and we were targeting 28 nm FDSOI, it was now possible to design both atto farad unit caps, and approach the thermal limit for 8-bit ADCs. 
+
+I was not sure whether it would be 8-bit, 9-bit or 10-bit that would be the most power optimum for 28 nm FDSOI, so I wanted to make multiple versions.
+
+-->
 
 ![inline 90%](../media/draxelmayr.gif)
 
@@ -216,6 +267,13 @@ If publishing, have some **luck**
 Designing a SAR ADC from scratch takes times!
 
 Could I design  "once and for all" a process independent SAR architecture that is tolerant towards supply, temperature, process, mismatch and process technology?
+
+
+<!--pan_doc:
+
+Could I generate multiple versions, one 8-bit, 9-bit and 10-bit? 
+
+-->
 
 ---
 
@@ -237,9 +295,25 @@ Could I design  "once and for all" a process independent SAR architecture that i
 
 # How to make multiple SAR ADCs with limited time?
 
+
+
+
 Spend 50% of time for 6 months to **develop** a tool to make SAR ADCs
 
 Spend 50% of time for 6 months to **make** the SAR ADCs
+
+<!--pan_doc: 
+At the time, my language of choice was Perl, so the first version of the script was a 16 k line Perl program that I named cnano.
+
+Cnano was started while I worked at Nordic, and I was able to bring the code with me to NTNU when I started my post doc. 
+
+In the end, cnano turned out out be slow, and the problem of variable type (numbers could be integer or float, but in a controlled manner) was becoming an issue.
+
+As such, I started writing Custom IC Creator abbreviated cic (which actually meant Carstens IC creator ;-) )  in 2014. cic is written in C++, and was developed to replace cnano. After 2017, I stopped maintaining cnano. 
+
+Below is an exceprt of the cic code. You can download cic from [https://github.com/wulffern/ciccreator](https://github.com/wulffern/ciccreator)
+
+-->
 
 [.column]
 
@@ -277,6 +351,13 @@ namespace cIcCells{
 ```
 
 ---
+
+<!--pan_doc:
+
+I wanted the input data to cnano/cic to be human readable, easy to parse and independent of technology. I also wanted the input data to be independent of 
+platform (linux,mac,windows) and CAD vendor (Cadence, Synopsys )
+
+-->
 
 
 ![inline](../media/cnano.pdf)

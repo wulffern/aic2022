@@ -6,6 +6,8 @@ use File::Basename;
 my $dir = "lectures";
 my $diro = "pandoc";
 
+my $title = "";
+
 sub cpImage{
   my $imgsrc = shift;
 
@@ -14,7 +16,11 @@ sub cpImage{
     return $imgsrc;
   }
 
-  my $imgdst = basename($imgsrc);
+  if(!-d $diro."/media"){
+    mkdir $diro."/media"
+  }
+
+  my $imgdst = "media/".basename($imgsrc);
 
   if($imgdst =~ m/\.pdf/ig){
     $imgdst  =~ s/\.pdf/\.png/ig;
@@ -41,13 +47,51 @@ sub d2m{
   print $fi."\n";
 
   my $output = 0;
+  my $first = 1;
+  my $skip_to_next_slide = 0;
+  my $remove_comment = 0;
 
   while(<FI>){
 
     #- Skip Metadata
-    if(m/^\s*$/ig){
+    if($first and m/^\s*$/ig){
       $output = 1;
+      $first = 0;
     }
+
+
+    if(m/<!--pan_([^:]+):(.*)$/ig ){
+
+      my $key = $1;
+      my $val = $2;
+      if($key eq "title"){
+        $title = $2;
+        $title =~ s/-->//ig;
+
+
+        next;
+      }elsif($key eq "skip"){
+        #print ">> Skipping slide\n";
+        $output = 0;
+        $skip_to_next_slide = 1;
+      }elsif($key eq "doc"){
+
+        # Start statemachine
+        # 1. Skip this line, it should be <!--pan_doc:
+        # 2. Enable removing -->
+        # 3. When -->, assume that's the end of the pan_doc, and go back to normal
+
+        $remove_comment = 1;
+        next;
+      }
+    }
+
+
+    if($remove_comment and m/-->/ig){
+      $remove_comment  = 0;
+      next;
+    }
+
 
     #- Remove spacers
     s/^\s*--\s*$//ig;
@@ -62,6 +106,11 @@ sub d2m{
     #- Fix math spaces
     s/\s*\$\$\s*/\$\$/ig;
 
+    #- Demote headings
+    s/^\s*#/##/ig;
+
+    s/^#(.*) Thanks!//ig;
+
     #- Fix images
     if(m/\!\[([^\]]*)\]\(([^\)]+)\)/ig){
 
@@ -69,8 +118,12 @@ sub d2m{
       my $imgdst = &cpImage($imgsrc);
 
       $_ = "<img src='$imgdst' ></img><br>\n";
-      #$_ = "![]($2) <br>\n";
+    #$_ = "![]($2) <br>\n";
 
+    }
+
+    if(m/^\s*---\s*$/ and $skip_to_next_slide){
+      $output = 1;
     }
 
     #- Remove lines
@@ -78,6 +131,8 @@ sub d2m{
 
     if($output){
       print FO $_;
+    }else{
+      #print $_
     }
 
 
@@ -92,7 +147,7 @@ sub pandoc{
   my $fo = shift;
   my $foh = $fo;
   $foh =~ s/\.md/\.html/ig;
-  system("pandoc -o $foh -t html --mathjax --metadata title='$fo' -s $fo")
+  system("pandoc -o $foh -t html --toc  --mathjax --from=markdown+pipe_tables  --metadata title='$title' -s $fo")
 
 }
 
@@ -103,21 +158,30 @@ sub pdf{
   $foh =~ s/\.md/\.html/ig;
   $fop =~ s/\.md/\.pdf/ig;
 
-  my $cmd = "\"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome\" --headless --disable-gpu --print-to-pdf=$fop $foh";
+  my $cmd = "\"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome\" --headless  --run-all-compositor-stages-before-draw --print-to-pdf-no-header --disable-gpu --print-to-pdf=$fop $foh";
 
   #print($cmd);
   system($cmd);
 }
 
 
-opendir(D,$dir) || die "Could not open $dir";
+#---------------------------------------------------------------------
+# Script
+#---------------------------------------------------------------------
 
+my $file = shift;
+
+opendir(D,$dir) || die "Could not open $dir";
 my @lectures;
 
 while(readdir(D)){
 
+
+
   if(m/^l.*\.md/){
-    push(@lectures,$_);
+    if(defined($file) && m/$file/ || !defined($file)){
+      push(@lectures,$_);
+    }
   }
 
 }
