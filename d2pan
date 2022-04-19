@@ -2,6 +2,7 @@
 
 use strict;
 use File::Basename;
+use Config;
 
 my $dir = "lectures";
 my $diro = "pandoc";
@@ -26,7 +27,18 @@ sub cpImage{
     $imgdst  =~ s/\.pdf/\.png/ig;
 
     if(!-f $diro."/".$imgdst){
-      system("cd $diro; sips -s format png $imgsrc --out $imgdst");
+      if($Config{'osname'} eq "linux"){
+        if($imgsrc =~ m/\.pdf/ig){
+
+          system("cd $diro; gs -dSAFER -r600 -sDEVICE=pngalpha -o $imgdst $imgsrc;")
+        }else{
+          system("cd $diro; convert  $imgsrc $imgdst");
+        }
+      }else{
+        #- Assume mac
+        system("cd $diro; sips -s format png $imgsrc --out $imgdst");
+      }
+
     }
   }else{
     if(!-f $diro."/".$imgdst){
@@ -158,9 +170,17 @@ sub pdf{
   $foh =~ s/\.md/\.html/ig;
   $fop =~ s/\.md/\.pdf/ig;
 
-  my $cmd = "\"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome\" --headless  --run-all-compositor-stages-before-draw --print-to-pdf-no-header --disable-gpu --print-to-pdf=$fop $foh";
+  my $chrome;
+  if($Config{'osname'} eq "linux"){
+    $chrome = "google-chrome";
+  }else{
+    #- Assume mac
+    $chrome = "\"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome\"";
+  }
 
-  #print($cmd);
+  my $cmd = "$chrome --headless  --run-all-compositor-stages-before-draw --print-to-pdf-no-header --disable-gpu --print-to-pdf=$fop $foh";
+
+  print($cmd);
   system($cmd);
 }
 
@@ -168,6 +188,14 @@ sub pdf{
 #---------------------------------------------------------------------
 # Script
 #---------------------------------------------------------------------
+
+#print(."\n");
+
+
+
+if(!-d pandoc){
+  mkdir "pandoc"
+}
 
 my $file = shift;
 
@@ -201,7 +229,7 @@ foreach my $l(sort(@lectures)){
 
   &d2m($fi,$fo);
   &pandoc($fo);
-  &pdf($fo);
+  #&pdf($fo);
 }
 
 my $index = $diro."/index.md";
