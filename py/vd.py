@@ -3,11 +3,9 @@
 from scipy import constants
 import numpy as np
 import matplotlib.pyplot as plt
-######################################################################
-# Intrinsic carrier concentration
-######################################################################
-#
-#
+import seaborn as sns
+
+sns.set_theme(style="dark")
 
 h = constants.physical_constants["Planck constant"][0]
 k = constants.Boltzmann
@@ -16,6 +14,7 @@ m0 = constants.m_e
 q = constants.physical_constants["elementary charge"][0]
 eV = constants.physical_constants["electron volt"][0]
 cm3 = 1e-6
+m = 1e3
 
 
 # |----------------- Ec = Conduction band
@@ -71,7 +70,8 @@ if __name__ == "__main__":
     Dn = 36 # cm^2/s
     Dp = 12 # cm^2/s
 
-    #- Mean lifetime of electrons. Strongly depends on doping density. http://www.ioffe.ru/SVA/NSM/Semicond/Si/electric.html
+    #- Mean lifetime of electrons. Strongly depends on doping density.
+    #http://www.ioffe.ru/SVA/NSM/Semicond/Si/electric.html
     tau_n = 8e-8
     tau_p = 8e-8
 
@@ -83,38 +83,33 @@ if __name__ == "__main__":
 
     C = T - 273.15
 
-
-
     #- Find error from linear
-
-#    A = np.vstack([T, np.ones(len(T))]).T
-
- #   print(A)
- #   print(Vd)
- #   m, c = np.linalg.lstsq(A, Vd, rcond=None)[0]
-
     line = np.polynomial.polynomial.polyfit(T,Vd,1)
-
     vd_lin_err = Vd - (T*line[1] + line[0])
 
 
+    #- Plot ni
     plt.subplot(3,1,1)
     plt.semilogy(C,n_i_adv,label="Advanced")
     plt.semilogy(C,n_i_simple,label="Simple")
     plt.semilogy(C,n_i_bsim,label="BSIM 4.8")
     plt.grid()
     plt.legend()
-
     plt.ylabel(" $n_i$ [$1/cm^3$]")
+
+    #- Plot Vd
     plt.subplot(3,1,2)
     plt.plot(C,Vd)
     plt.grid(True)
-    plt.ylabel("Diode voltage")
+    plt.ylabel("Diode voltage [V]")
 
 
+    #- Plot Vd linear error
     plt.subplot(3,1,3)
     plt.grid(True)
-    plt.plot(C,vd_lin_err)
+    plt.plot(C,vd_lin_err*m)
+
+    plt.ylabel("Non-linear component (mV)")
     plt.xlabel("Temperature [C]")
 
     plt.show()
