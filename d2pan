@@ -119,7 +119,7 @@ sub d2m{
     s/\s*\$\$\s*/\$\$/ig;
 
     #- Demote headings
-    s/^\s*#/##/ig;
+    #s/^\s*#/##/ig;
 
     s/^#(.*) Thanks!//ig;
 
@@ -129,8 +129,8 @@ sub d2m{
       my $imgsrc = $2;
       my $imgdst = &cpImage($imgsrc);
 
-      $_ = "<img src='$imgdst' ></img><br>\n";
-    #$_ = "![]($2) <br>\n";
+      #$_ = "<img src='$imgdst' ></img><br>\n";
+      $_ = "![]($imgdst)\n";
 
     }
 
@@ -149,10 +149,20 @@ sub d2m{
 
   }
 
+  my $date = `date +%Y-%m-%d`;
+
   open(FO,'>', $fo) or die "could not open $fo for writing";
 
   print FO "---\n";
   print FO "title: $title\n";
+  print FO <<"EOF";
+author:
+  - Carsten Wulff, $date
+documentclass: IEEEtran
+papersize: a4
+classoption: journal
+EOF
+
   print FO "---\n";
 
   print FO $buffer;
@@ -204,6 +214,7 @@ if(!-d pandoc){
 }
 
 my $file = shift;
+my $noimg = shift;
 
 opendir(D,$dir) || die "Could not open $dir";
 my @lectures;

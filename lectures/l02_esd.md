@@ -107,6 +107,7 @@ a GPIO, but here we'll also include a physical button on the board. Maybe even l
 - Provide power to the IC
 - Provide path for ESD currents
 
+<!--pan_skip: -->
 
 ![right fit](../media/sun_nrf52_annotated.pdf)
 
@@ -126,12 +127,13 @@ Digital output from HFCLK on nRF52 via PPI to GPIOTE. Digital input on SUN
 
 ---
 **ARST_N**
-
 Active low reset. 
 
 Output from nRF52 GPIO so we can do software reset, but also include a reset button on the PCB, just in case. 
 
 Ensures that all flip-flops are in a known state before we start to configure SUN
+
+<!--pan_skip: -->
 
 ![right fit](../media/sun_nrf52_annotated.pdf)
 
@@ -147,6 +149,8 @@ Ensures that all flip-flops are in a known state before we start to configure SU
 
 Long shift register. Bit bang SI and SCK from nRF52. When all bits are shifted in, then set SLOAD high to load the control word.
 
+
+<!--pan_skip: -->
 
 ![right fit](../media/sun_nrf52_annotated.pdf)
 
@@ -174,6 +178,8 @@ If nRF52 is not fast enough to capture TXD at full speed, or has enough RAM to s
 | Digital output              | P\_DO\_EV | VDD   | Pin clamp to VDD and VSS.                       |
 
 ---
+
+<!--pan_skip: -->
 
 # The **real world** constrains our IC
 
@@ -219,7 +225,8 @@ Standards for testing at [JEDEC](https://www.jedec.org/category/technology-focus
 
 
 ---
-# When do ESD events occur?
+
+## When do ESD events occur?
 
 [.column]
 
@@ -240,15 +247,11 @@ System level ESD
 ---
 ## Human body model (HBM)
 
-Models a person touching a device with a finger
-
-**Long** duration (around 100 ns)
-
-Acts like a current source into a pin
-
-Can usually be handled in the I/O ring
-
-4 kV HBM ESD $$\Rightarrow$$ 2.67 A peak current
+- Models a person touching a device with a finger
+- **Long** duration (around 100 ns)
+- Acts like a current source into a pin
+- Can usually be handled in the I/O ring
+- 4 kV HBM ESD is 2.67 A peak current
 
 ![right fit](../media/esd_hbm_finger.pdf)
 
@@ -257,22 +260,22 @@ Can usually be handled in the I/O ring
 ![inline fit](../media/esd_hbm_model.pdf)
 
 ---
-**What could we do for VSS $$\Rightarrow$$ VDD?**
+**What could we do for VSS to VDD?**
 
 ![inline fit](../media/esd_hbm.pdf)
 
 ---
-**What could we do for VDD $$\Rightarrow$$ VSS?**
+**What could we do for VDD to VSS?**
 
 ![inline fit](../media/esd_hbm.pdf)
 
 ---
-**What could we do for PIN $$\Rightarrow$$ VSS?**
+**What could we do for PIN to VSS?**
 
 ![inline fit](../media/esd_hbm.pdf)
 
 ---
-**What could we do for VSS $$\Rightarrow$$ PIN?**
+**What could we do for VSS to PIN?**
 
 ![inline fit](../media/esd_hbm.pdf)
 

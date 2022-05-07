@@ -79,7 +79,7 @@ In our testbenches, and trial schematics, it's common to include voltage sources
 ideal voltage source, or ideal current source does not exist in the real world. There is no such thing.
 
 We can come close to creating a voltage source, so a known voltage, with a  low source impedance, but it won't be zero.
-And it won't be infinetly fast either. If we suddenly decide to pull 1 kA from a lab supply I promise you the voltage will drop. 
+And it won't be inifinetly fast either. If we suddenly decide to pull 1 kA from a lab supply I promise you the voltage will drop. 
 
 So how do we create something that is a _good enough_ voltage and current source on an IC?
 
@@ -100,7 +100,7 @@ Assume we do have a known voltage on our IC. How can we make sure we can share t
 A voltage is only defined between two points. There is no such thing as the _voltage at a point on a wire_, nor _voltage in a node_. 
 Yes, I know we say that, but it's not right. What we forget is that by _voltage in a node_ we always, always mean _voltage in a node referred to ground_.
 
-We've invented this magical place called _ground_, the final restingplace of all electroncs, and we have agreed that all voltages refer to that point.
+We've invented this magical place called _ground_, the final resting place of all electroncs, and we have agreed that all voltages refer to that point.
 
 So when we say "Voltage in node A is 1V", what we actually mean is "Voltage in node A is 1 V referred to ground".
 
@@ -154,9 +154,10 @@ From this equation, it looks like the voltage $V_D$ is proportional to temperatu
 
 $$ V_T = \frac{k T}{q} $$
 
-However, it turns out that the $V_D$ usually decreses with temperature due to the temperature dependence of $I_S$ . If you want to understand why, you need to read up on the semiconductor physics, and how [Shockley diode equation](https://en.wikipedia.org/wiki/Shockley_diode_equation) was derived.
+However, it turns out that the $V_D$ usually decreses with temperature due to the temperature dependence of $I_S$ . 
+If you want to understand why, take a look at [Diodes](https://github.com/wulffern/memos/blob/main/delivery/2021-07-08_diodes.pdf)
 
-The $V_D$ is linear with temperature with a property that if you extraplotate the V_D line to zero Kelvin, then they all seem to meet at the bandgap voltage of silicon (approx 1.2x V). 
+The $V_D$ is linear with temperature with a property that if you extraplotate the V_D line to zero Kelvin, then they all seem to meet at the bandgap voltage of silicon (approx 1.12 V). 
 
 -->
 
