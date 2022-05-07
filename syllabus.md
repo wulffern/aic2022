@@ -24,7 +24,7 @@ TFE4187 Analog CMOS1**
 | 18      | Oversampling Converters                  | 18.4,18.5,18.8,18.9                               |
 | 19      | Phase-locked loops                       |                                                   |
 
-In addition to the chapters in the book, the following papers are part of the
+In addition to the chapters in the book, and the excersizes on blackboard,  the following papers are part of the
 syllabus
 
 | Week | Lecture            | Difficulty | Title                                                                                                                                                                                       | Excluded                           |
@@ -39,4 +39,5 @@ syllabus
 | 11   | CLK                |            | [The Crystal Oscillator - A Circuit for All Seasons](https://ieeexplore.ieee.org/document/7954123)                                                                                          |                                    |
 |      |                    |            | [The Delay-Locked Loop - A Circuit for All Seasons ](https://ieeexplore.ieee.org/document/8447468)                                                                                          |                                    |
 |      |                    |            | [The Ring Oscillator - A Circuit for All Seasons ](https://ieeexplore.ieee.org/document/8901474)                                                                                            |                                    |
+
 
